@@ -6,7 +6,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var CONTACTS_COLLECTION = "informations";
+var RKYAI_COLLECTION = "informations";
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -24,21 +24,21 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
   // Save database object from the callback for reuse.
   db = database;
-  console.log("Database connection ready");
+  console.log("Database connexion OK");
 
   // Initialize the app.
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
-    console.log("App now running on port", port);
+    console.log("App en cours d'execution sur le port", port);
   });
 });
 
 // API ROUTES
 
-// Generic error handler used by all endpoints.
-function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).json({"error": message});
+// Error handler pour les endpoints.
+function handleError(res, cause, message, code) {
+  console.log("ERREUR: " + cause);
+  res.status(code || 500).json({"erreur": message});
 }
 
 /*  "/api/v1"
@@ -46,27 +46,26 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new contact
  */
 
-app.get("/api/v1/contacts", function(req, res) {
-  db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
+app.get("/api/v1/map", function(req, res) {
+  db.collection(RKYAI_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
-      handleError(res, err.message, "Failed to get contacts.");
+      handleError(res, err.message, "Erreur pour recuperer les infos.");
     } else {
       res.status(200).json(docs);
     }
   });
 });
 
-app.post("/api/v1/contacts", function(req, res) {
-  var newContact = req.body;
-  newContact.createDate = new Date();
+app.post("/api/v1/map", function(req, res) {
+  var newUser = req.body;
 
-  if (!(req.body.firstName || req.body.lastName)) {
-    handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
+  if (!(req.body.source || req.body.latitude)) {
+    handleError(res, "Donnees Invalides", "Doit comporter la source et/ou localisation.", 400);
   }
 
-  db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
+  db.collection(RKYAI_COLLECTION).insertOne(newUser, function(err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to create new contact.");
+      handleError(res, err.message, "Impossible de creer nouveau user");
     } else {
       res.status(201).json(doc.ops[0]);
     }
