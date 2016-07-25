@@ -115,7 +115,7 @@ app.delete("/api/v1/user/:user", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed: impossible d'effacer le user");
     } else {
-      res.status(204).end();
+      res.status(204).end("kool");
     }
   });
 });
