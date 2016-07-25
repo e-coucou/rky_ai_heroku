@@ -110,7 +110,7 @@ app.put("/api/v1/map/:user", function(req, res) {
   });
 });
 
-app.delete("/api/v1/user/:user", function(req, res) {
+app.delete("/api/v1/user/:id", function(req, res) {
   db.collection(RKYAI_COLLECTION).deleteOne({"user": req.params.id }, function(err, result) {
     if (err) {
       handleError(res, err.message, "Failed: impossible d'effacer le user");
