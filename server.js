@@ -87,14 +87,23 @@ app.get("/api/v1/contacts/:id", function(req, res) {
     }
   });
 });
+app.get("/api/v1/user/:id", function(req, res) {
+  db.collection(RKYAI_COLLECTION).findOne({ "user": req.params.id }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed: impossible de recuperer le user");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+});
 
-app.put("/api/v1/contacts/:id", function(req, res) {
+app.put("/api/v1/map/:user", function(req, res) {
   var updateDoc = req.body;
   delete updateDoc._id;
 
   db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to update contact");
+      handleError(res, err.message, "Failed: impossible de mettre à jour le user");
     } else {
       res.status(204).end();
     }
