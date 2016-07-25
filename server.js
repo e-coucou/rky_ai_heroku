@@ -92,7 +92,7 @@ app.get("/api/v1/user/:id", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de recuperer le user");
     } else {
-      res.status(200).json(doc).end('ok');
+      res.status(200).json(doc);
     }
   });
 });
