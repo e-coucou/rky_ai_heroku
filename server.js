@@ -110,10 +110,10 @@ app.put("/api/v1/map/:user", function(req, res) {
   });
 });
 
-app.delete("/api/v1/contacts/:id", function(req, res) {
-  db.collection(RKYAI_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+app.delete("/api/v1/user/:user", function(req, res) {
+  db.collection(RKYAI_COLLECTION).deleteOne({"user": req.params.id }, function(err, result) {
     if (err) {
-      handleError(res, err.message, "Failed to delete contact");
+      handleError(res, err.message, "Failed: impossible d'effacer le user");
     } else {
       res.status(204).end();
     }
