@@ -118,9 +118,9 @@ app.put("/api/v1/map/:id", function(req, res) {
     updateDoc.date = d.toUTCString();
     updateDoc.UTC = d.getTime();
     updateDoc.json = d.toJSON();
-  console.log(SHA3(req.params.niveau));
-  console.log(updateDoc);
-  db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, { $set: {"latitude":req.body.latitude , "longitude":req.body.longitude, "niveau":req.body.niveau } }, function(err, doc) {
+//  console.log(SHA3(req.params.niveau));
+//  console.log(updateDoc);
+  db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, { $set: {"latitude":req.body.latitude , "longitude":req.body.longitude, "niveau":req.body.niveau, "date": updateDoc.date, "UTC": updateDoc.UTC, "json": updateDoc.json }$currentDate: { lastModified: true } }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de mettre à jour le user");
     } else {
