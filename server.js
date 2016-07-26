@@ -64,8 +64,8 @@ app.post("/api/v1/map", function(req, res) {
     newUser.date = d.toUTCString();
     newUser.UTC = d.getTime();
     newUser.json = d.toJSON();
-  newUser.su3 = SHA3(req.body.user)
-  newUser.su1 = SHA1(req.body.user)
+  newUser.userSHA3 = SHA3(req.body.user);
+  newUser.userSHA1 = SHA1(req.body.user);
 
   if (!(req.body.source || req.body.latitude)) {
     handleError(res, "Donnees Invalides", "Doit comporter la source et/ou localisation.", 400);
