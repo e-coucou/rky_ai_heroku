@@ -59,15 +59,15 @@ app.get("/api/v1/map", function(req, res) {
 app.post("/api/v1/map", function(req, res) {
   var newUser = req.body;
   var SHA3 = require("crypto-js/sha3");
-  var SHA1 = require("crypto-js/sha1");
+  var Crypto = require("crypto-js");
   var d = new Date();
     newUser.date = d.toUTCString();
     newUser.UTC = d.getTime();
     newUser.json = d.toJSON();
-  newUser.userSHA3 = SHA3(req.body.user);
-  newUser.userSHA1 = SHA1(req.body.user);
+//  newUser.userSHA3 = SHA3(req.body.user);
+  newUser.userSHA1 = Crypto.SHA1(req.body.user).toString(Crypto.enc.Utf8);
   console.log(newUser.userSHA1);
-  console.log(newUser.userSHA3);
+//  console.log(newUser.userSHA3);
 
   if (!(req.body.user || req.body.latitude)) {
     handleError(res, "Donnees Invalides", "Doit comporter la source et/ou localisation.", 400);
