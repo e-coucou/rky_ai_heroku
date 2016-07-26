@@ -66,8 +66,10 @@ app.post("/api/v1/map", function(req, res) {
     newUser.json = d.toJSON();
   newUser.userSHA3 = SHA3(req.body.user);
   newUser.userSHA1 = SHA1(req.body.user);
+  console.log(userSHA1);
+  console.log(userSHA3);
 
-  if (!(req.body.source || req.body.latitude)) {
+  if (!(req.body.user || req.body.latitude)) {
     handleError(res, "Donnees Invalides", "Doit comporter la source et/ou localisation.", 400);
   }
 
