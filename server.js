@@ -59,7 +59,7 @@ app.get("/api/v1/map", function(req, res) {
 app.post("/api/v1/map", function(req, res) {
   var newUser = req.body;
   var SHA3 = require("crypto-js/sha3");
-  var SHA1 = require("crypto-js/sha3");
+  var SHA1 = require("crypto-js/sha1");
   var d = new Date();
     newUser.date = d.toUTCString();
     newUser.UTC = d.getTime();
