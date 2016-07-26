@@ -60,7 +60,7 @@ app.post("/api/v1/map", function(req, res) {
   var newUser = req.body;
   var d = new Date();
     newUser.date = d.toUTCString();
-    newUser.UTC = d.now();
+    newUser.UTC = d.getTime();
     newUser.json = d.toJSON();
 
   if (!(req.body.source || req.body.latitude)) {
