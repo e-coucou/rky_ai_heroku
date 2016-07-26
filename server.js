@@ -104,13 +104,13 @@ app.get("/api/v1/user/:id", function(req, res) {
 
 app.put("/api/v1/map/:id", function(req, res) {
   var updateDoc = req.body;
-  var SHA256 = require("crypto-js/sha256");
+  var SHA3 = require("crypto-js/sha3");
   delete updateDoc._id;
   var d = new Date();
     updateDoc.date = d.toUTCString();
     updateDoc.UTC = d.getTime();
     updateDoc.json = d.toJSON();
-  console.log(SHA256(updateDoc.user));
+  console.log(SHA3(req.params.niveau));
   db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de mettre à jour le user");
