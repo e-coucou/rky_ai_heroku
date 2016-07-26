@@ -65,7 +65,10 @@ app.post("/api/v1/map", function(req, res) {
     newUser.UTC = d.getTime();
     newUser.json = d.toJSON();
 //  newUser.userSHA3 = SHA3(req.body.user);
-  newUser.userSHA1 = Crypto.SHA1(req.body.user).toString(Crypto.enc.Utf8);
+  var words = Crypto.SHA1(req.body.user);
+  console.log(words);
+  var plainSHA1 = words.toString(Crypto.enc.base64);
+  newUser.userSHA1 = plainSHA1;
   console.log(newUser.userSHA1);
 //  console.log(newUser.userSHA3);
 
