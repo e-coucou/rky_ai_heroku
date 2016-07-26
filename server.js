@@ -110,7 +110,7 @@ app.put("/api/v1/map/:id", function(req, res) {
     updateDoc.date = d.toUTCString();
     updateDoc.UTC = d.getTime();
     updateDoc.json = d.toJSON();
-  console.log(SHA256(updateDoc.user);
+  console.log(SHA256(updateDoc.user));
   db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de mettre à jour le user");
