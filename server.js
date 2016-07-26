@@ -66,10 +66,10 @@ app.post("/api/v1/map", function(req, res) {
     newUser.json = d.toJSON();
 //  newUser.userSHA3 = SHA3(req.body.user);
   var words = Crypto.SHA1(req.body.user);
-  console.log(words);
+//  console.log(words);
   var plainSHA1 = words.toString(Crypto.enc.base64);
   newUser.userSHA1 = plainSHA1;
-  console.log(newUser.userSHA1);
+//  console.log(newUser.userSHA1);
 //  console.log(newUser.userSHA3);
 
   if (!(req.body.user || req.body.latitude)) {
@@ -119,6 +119,7 @@ app.put("/api/v1/map/:id", function(req, res) {
     updateDoc.UTC = d.getTime();
     updateDoc.json = d.toJSON();
   console.log(SHA3(req.params.niveau));
+  console.log(updateDoc);
   db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de mettre à jour le user");
