@@ -55,22 +55,23 @@ app.get("/api/v1/map", function(req, res) {
     }
   });
 });
-
+//-------------------------------------
+//Creation d'un nouvel utilisateur
 app.post("/api/v1/map", function(req, res) {
   var newUser = req.body;
-  var SHA3 = require("crypto-js/sha3");
   var Crypto = require("crypto-js");
   var d = new Date();
-    newUser.date = d.toUTCString();
-    newUser.UTC = d.getTime();
-    newUser.json = d.toJSON();
-//  newUser.userSHA3 = SHA3(req.body.user);
-  var words = Crypto.SHA256(req.body.user+newUser.date);
-//  console.log(words);
-  var plainSHA1 = words.toString(Crypto.enc.base64);
-  newUser.userSHA1 = plainSHA1;
-//  console.log(newUser.userSHA1);
-//  console.log(newUser.userSHA3);
+//    newUser.profil.UTC = d.getTime();
+    newUser.profil.date = d.toJSON();
+  var words = Crypto.SHA256(req.body.user+d.toUTCString());
+  var plaintext = words.toString(Crypto.enc.base64);
+  newUser.userId = plaintext;
+  newUser.profil.latitude = req.body.latitude;
+  newUser.profil.longitude = req.body.longitude;
+  newUser.etat = "safe";
+  newUser.record = "map";
+  newUser.type = "user";
+  newUser.lastUser = newUser.profil.date;
 
   if (!(req.body.user || req.body.latitude)) {
     handleError(res, "Donnees Invalides", "Doit comporter la source et/ou localisation.", 400);
