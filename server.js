@@ -110,23 +110,26 @@ app.get("/api/v1/user/:id", function(req, res) {
     }
   });
 });
-
+//-------------------------------------
+//MAJ d'un utilisateur
+// :id -> userId
 app.put("/api/v1/map/:id", function(req, res) {
   var updateDoc = req.body;
   var SHA3 = require("crypto-js/sha3");
   delete updateDoc._id;
+  delete updateDoc.userId;
   var d = new Date();
-    updateDoc.date = d.toUTCString();
-    updateDoc.UTC = d.getTime();
-    updateDoc.json = d.toJSON();
-//  console.log(SHA3(req.params.niveau));
-//  console.log(updateDoc);
+//    updateDoc.date = d.toUTCString();
+//    updateDoc.UTC = d.getTime();
+  if (req.body.type=="user") {
+    updateDoc.lastUser = d.toJSON();
+  }
 //  db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, { $set: {"latitude":req.body.latitude , "longitude":req.body.longitude, "niveau":req.body.niveau, "date": updateDoc.date, "UTC": updateDoc.UTC, "json": updateDoc.json }, $currentDate: { lastModified: true } }, function(err, doc) {
-  db.collection(RKYAI_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, { $set: updateDoc, $currentDate: { lastModified: true } }, function(err, doc) {
+  db.collection(RKYAI_COLLECTION).updateOne({"userId": req.params.id}, { $set: updateDoc, $currentDate: { lastModified: true } }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de mettre à jour le user");
     } else {
-      res.status(204).end();
+      res.status(204).json(doc); //end();
     }
   });
 });
