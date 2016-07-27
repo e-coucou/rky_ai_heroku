@@ -120,8 +120,8 @@ app.get("/api/v1/user/:id", function(req, res) {
     }
   });
 });
-app.get("/api/v1/liste/userId", function(req, res) {
-        db.collection(CONTACTS_COLLECTION).distinct( "userId" , function(err, doc) {
+app.get("/api/v1/liste/user", function(req, res) {
+        db.collection(RKYAI_COLLECTION).distinct( "userId" , function(err, doc) {
             if (err) {
                 handleError(res, err.message, "Failed to find liste");
             } else {
