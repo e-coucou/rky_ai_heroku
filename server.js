@@ -128,7 +128,35 @@ app.get("/api/v1/liste/user", function(req, res) {
                 res.status(200).json(doc);
             }
     });
-});//-------------------------------------
+});
+app.get("/api/v1/liste/id", function(req, res) {
+        db.collection(RKYAI_COLLECTION).distinct( _id , function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to find liste");
+            } else {
+                res.status(200).json(doc);
+            }
+    });
+});
+app.get("/api/v1/liste/type", function(req, res) {
+        db.collection(RKYAI_COLLECTION).distinct( "type" , function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to find liste");
+            } else {
+                res.status(200).json(doc);
+            }
+    });
+});
+app.get("/api/v1/liste/etat", function(req, res) {
+        db.collection(RKYAI_COLLECTION).distinct( "etat" , function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to find liste");
+            } else {
+                res.status(200).json(doc);
+            }
+    });
+});
+//-------------------------------------
 //MAJ d'un utilisateur
 // :id -> userId
 app.put("/api/v1/map/:id", function(req, res) {
