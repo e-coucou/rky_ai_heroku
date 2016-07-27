@@ -45,7 +45,7 @@ function handleError(res, cause, message, code) {
  *    GET: finds all contacts
  *    POST: creates a new contact
  */
-
+// GET tous les records
 app.get("/api/v1/all", function(req, res) {
   db.collection(RKYAI_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
@@ -55,6 +55,7 @@ app.get("/api/v1/all", function(req, res) {
     }
   });
 });
+// GET des records="map"
 app.get("/api/v1/map", function(req, res) {
   db.collection(RKYAI_COLLECTION).find({"record":"map"}).toArray(function(err, docs) {
     if (err) {
@@ -111,7 +112,7 @@ app.get("/api/v1/id/:id", function(req, res) {
   });
 });
 app.get("/api/v1/user/:id", function(req, res) {
-  db.collection(RKYAI_COLLECTION).findOne({ "user": req.params.id }, function(err, doc) {
+  db.collection(RKYAI_COLLECTION).findOne({ "profil": {"user": req.params.id}, "record":"map" }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de recuperer le user");
     } else {
@@ -144,11 +145,11 @@ app.put("/api/v1/map/:id", function(req, res) {
 });
 
 app.delete("/api/v1/user/:id", function(req, res) {
-  db.collection(RKYAI_COLLECTION).deleteOne({"user": req.params.id }, function(err, result) {
+  db.collection(RKYAI_COLLECTION).deleteOne({"userId": req.params.id, "record": "map" }, function(err, result) {
     if (err) {
       handleError(res, err.message, "Failed: impossible d'effacer le user");
     } else {
-      res.status(204).end("kool");
+      res.status(204).end();
     }
   });
 });
