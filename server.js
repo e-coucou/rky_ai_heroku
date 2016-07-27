@@ -168,11 +168,13 @@ app.get("/api/v1/liste/record", function(req, res) {
 app.get("/api/v1/search", function(req, res) {
     if (req.query.user == "*" || ( typeof req.query.user == 'undefined')) { user = { $regex: /\w|/, $options:"i"} } else { user = req.query.user }
     if (req.query.record == "*" || (typeof req.query.record == 'undefined')) { record = { $regex: /\w|/, $options:"i"} } else { record = req.query.record }
+    if (req.query.etat == "*" || (typeof req.query.etat == 'undefined')) { etat = { $regex: /\w|/, $options:"i"} } else { etat = req.query.etat }
+    if (req.query.type == "*" || (typeof req.query.type == 'undefined')) { type = { $regex: /\w|/, $options:"i"} } else { type = req.query.type }
 //    if (typeof req.query.before == 'undefined') { before = ObjectID(Math.floor((new Date('2100/12/31'))/1000).toString(16) + "0000000000000000") } else { before = ObjectID(Math.floor((new Date(req.query.before))/1000 - 7200).toString(16) + "0000000000000000") }
 //    if (typeof req.query.after == 'undefined') { after = ObjectID(Math.floor((new Date('2016/01/01'))/1000).toString(16) + "0000000000000000") } else { after = ObjectID(Math.floor((new Date(req.query.after))/1000 - 7200).toString(16) + "0000000000000000") }
 //    if (typeof req.query.filtre == 'undefined') { filtre = {} } else { if (req.query.filtre == "name") { filtre = {name: 1, value:  1, _id: 0} } else {filtre = { value: 1 , _id: 0 } } }
     
-  selection = { userId: user, record: record }; //, _id: {$lt: before, $gt: after}} ;
+  selection = { userId: user, record: record, etat: etat, type: type }; //, _id: {$lt: before, $gt: after}} ;
   filtre = {userId:1, latitude:1,longitude:1,etat:1,_id:0};
 
 //  console.log("before = "+before+"  after : "+after);
