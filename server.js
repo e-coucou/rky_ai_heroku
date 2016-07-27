@@ -156,6 +156,15 @@ app.get("/api/v1/liste/etat", function(req, res) {
             }
     });
 });
+app.get("/api/v1/liste/record", function(req, res) {
+        db.collection(RKYAI_COLLECTION).distinct( "record" , function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to find liste");
+            } else {
+                res.status(200).json(doc);
+            }
+    });
+});
 //-------------------------------------
 //MAJ d'un utilisateur
 // :id -> userId
