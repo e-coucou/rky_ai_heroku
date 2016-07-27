@@ -46,8 +46,17 @@ function handleError(res, cause, message, code) {
  *    POST: creates a new contact
  */
 
-app.get("/api/v1/map", function(req, res) {
+app.get("/api/v1/all", function(req, res) {
   db.collection(RKYAI_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Erreur pour recuperer les infos.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+app.get("/api/v1/map", function(req, res) {
+  db.collection(RKYAI_COLLECTION).find({"record":"map"}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Erreur pour recuperer les infos.");
     } else {
