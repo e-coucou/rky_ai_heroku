@@ -120,7 +120,15 @@ app.get("/api/v1/user/:id", function(req, res) {
     }
   });
 });
-//-------------------------------------
+app.get("/api/v1/liste/userId", function(req, res) {
+        db.collection(CONTACTS_COLLECTION).distinct( "userId" , function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to find liste");
+            } else {
+                res.status(200).json(doc);
+            }
+    });
+});//-------------------------------------
 //MAJ d'un utilisateur
 // :id -> userId
 app.put("/api/v1/map/:id", function(req, res) {
