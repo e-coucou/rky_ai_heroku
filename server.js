@@ -112,7 +112,7 @@ app.get("/api/v1/id/:id", function(req, res) {
   });
 });
 app.get("/api/v1/user/:id", function(req, res) {
-  db.collection(RKYAI_COLLECTION).findOne({ "profil": {"user": req.params.id}, "record":"map" }, function(err, doc) {
+  db.collection(RKYAI_COLLECTION).findOne({ "userId": req.params.id, "record":"map" }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed: impossible de recuperer le user");
     } else {
