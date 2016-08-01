@@ -91,7 +91,7 @@ app.post("/api/v1/map", function(req, res) {
     if (err) {
       handleError(res, err.message, "Impossible de creer nouveau user");
     } else {
-      res.status(201).json(doc.ops[0]);
+      res.status(201).json(doc); //.ops[0]);
     }
   });
 });
