@@ -175,7 +175,7 @@ app.get("/api/v1/search", function(req, res) {
 //    if (typeof req.query.filtre == 'undefined') { filtre = {} } else { if (req.query.filtre == "name") { filtre = {name: 1, value:  1, _id: 0} } else {filtre = { value: 1 , _id: 0 } } }
     
   selection = { userId: user, record: record, etat: etat, type: type }; //, _id: {$lt: before, $gt: after}} ;
-  filtre = {userId:1, latitude:1,longitude:1,etat:1,_id:0};
+  filtre = {userId:0, latitude:1,longitude:1,etat:1,_id:0};
 
 //  console.log("before = "+before+"  after : "+after);
   
