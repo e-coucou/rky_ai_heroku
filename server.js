@@ -66,8 +66,9 @@ app.get("/api/v1/map", function(req, res) {
   });
 });
 // get tous les usedId de pseudo
+/*
 app.get("/api/v1/liste/pseudo", function(req, res) {
-        db.collection(RKYAI_COLLECTION).find( {"profil": { "user" : "Python_Test" } }, function(err, doc) {
+        db.collection(RKYAI_COLLECTION).find( {"profil": { "user":"Python_Test" } }, function(err, doc) {
             if (err) {
                 handleError(res, err.message, "Failed to find liste de user");
             } else {
@@ -75,6 +76,7 @@ app.get("/api/v1/liste/pseudo", function(req, res) {
             }
     });
 });
+*/
 //-------------------------------------
 //Creation d'un nouvel utilisateur
 app.post("/api/v1/map", function(req, res) {
