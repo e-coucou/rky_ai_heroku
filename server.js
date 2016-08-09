@@ -65,6 +65,16 @@ app.get("/api/v1/map", function(req, res) {
     }
   });
 });
+// get tous les usedId de pseudo
+app.get("/api/v1/liste/pseudo", function(req, res) {
+        db.collection(RKYAI_COLLECTION).find( {"profil": { "user" : "Python_Test" } }, function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to find liste de user");
+            } else {
+                res.status(200).json(doc);
+            }
+    });
+});
 //-------------------------------------
 //Creation d'un nouvel utilisateur
 app.post("/api/v1/map", function(req, res) {
@@ -95,7 +105,23 @@ app.post("/api/v1/map", function(req, res) {
     }
   });
 });
+//-------------------------------------
+//Creation d'une nouvelle alerte
+// userId+Longitude+latitude+etat
+app.post("/api/v1/alerte", function(req, res) {
+  var newAlert = req.body;
+  var d = new Date();
+  newAlert.record = "alerte";
+  newAlert.type = "user";
 
+  db.collection(RKYAI_COLLECTION).insertOne(newAlert, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Impossible de creer nouvelle alerte");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
+  });
+});
 /*  "/api/v1/contacts/:id"
  *    GET: find contact by id
  *    PUT: update contact by id
