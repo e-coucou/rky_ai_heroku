@@ -57,7 +57,7 @@ app.get("/api/v1/all", function(req, res) {
 });
 // GET des records="map"
 app.get("/api/v1/map", function(req, res) {
-  db.collection(RKYAI_COLLECTION).find({"record":"map"}).toArray(function(err, docs) {
+  db.collection(RKYAI_COLLECTION).find({ record:"map"}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Erreur pour recuperer les infos.");
     } else {
